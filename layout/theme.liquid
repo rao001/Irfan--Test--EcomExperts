@@ -348,5 +348,18 @@
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    {% if template contains 'cart' %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Replace product IDs with your own
+      var productIdsToAdd = ['7363442376804', '7338299719780'];
+
+      productIdsToAdd.forEach(function(productId) {
+        Shopify.addItem(productId, 1);
+      });
+    });
+  </script>
+{% endif %}
+
   </body>
 </html>
