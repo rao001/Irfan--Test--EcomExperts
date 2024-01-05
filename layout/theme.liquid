@@ -348,6 +348,31 @@
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-    
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var Handbag = '7338299719780'; // Replace with the actual title or ID of Product A
+    var soft-winter-jacket = '7362661777508'; // Replace with the actual title or ID of Product B
+
+    document.addEventListener('click', function(event) {
+      if (event.target.classList.contains('add-to-cart-btn')) {
+        var productName = event.target.getAttribute('data-product-title');
+
+        if (productName === Handbag) {
+          addToCart(soft-winter-jacket);
+        }
+      }
+    });
+
+    function addToCart(product) {
+      var form = document.createElement('form');
+      form.method = 'post';
+      form.action = '/cart/add';
+      form.innerHTML = '<input type="hidden" name="id" value="' + product + '">';
+
+      document.body.appendChild(form);
+      form.submit();
+    }
+  });
+</script>
   </body>
 </html>
