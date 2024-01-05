@@ -348,35 +348,6 @@
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-    {% for item in cart.items %}
-  {% if item.title == 'Handbag' %}
-    {% assign gift_product_title = 'Soft Winter Jacket' %}
-    {% assign gift_product = false %}
     
-    {% for product in collections.all.products %}
-      {% if product.title == gift_product_title %}
-        {% assign gift_product = true %}
-        {% assign variant_id = product.variants.first.id %}
-        {% assign quantity = 1 %}
-        {% assign gift_price = 0 %}
-        {% assign properties = product.options %}
-        {% assign line = 'properties[foo]=bar' %}
-        {% assign properties_hash = properties | parse_json %}
-        {% assign gift_line = 'gift_product' | split: ':' %}
-        {% assign properties_hash = properties_hash | merge: gift_line %}
-        {% form 'product', product, quantity: quantity, variant_id: variant_id, properties: properties_hash, line: line, price: gift_price %}
-     {% endform %}
-    {% endif %}
-    {% endfor %}
-    
-    {% unless gift_product %}
-      {%- comment -%}
-        If the gift product is not found, you may want to display a message or take some other action.
-      {%- endcomment -%}
-      <p>Sorry, the gift product is not available.</p>
-    {% endunless %}
-  {% endif %}
-{% endfor %}
-
   </body>
 </html>
