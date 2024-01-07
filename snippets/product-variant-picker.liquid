@@ -60,15 +60,16 @@
           </div>
         </div>
       {%- endfor -%}
-    <!-- <script>
+    <script>
   // Wait for the document to be ready
   document.addEventListener("DOMContentLoaded", function() {
-    // Loop through each dropdown and set its selected index to -1
+    // Loop through each dropdown
     document.querySelectorAll('.select__select').forEach(function(select) {
-      select.selectedIndex = -1;
+      // Set the selected index to 0 (index of the first option)
+      select.selectedIndex = 0;
     });
   });
-</script> -->
+</script>
 
       <script type="application/json">
         {{ product.variants | json }}
