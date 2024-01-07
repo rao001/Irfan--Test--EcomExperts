@@ -42,7 +42,33 @@
       {% endif %}
       {{ block.shopify_attributes }}
     >
-      
+      {%- for option in product.options_with_values -%}
+        <div class="product-form__input product-form__input--dropdown">
+          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+            {{ option.name }}
+          </label>
+          <div class="select">
+            <select
+              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+              class="select__select"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+            >
+              {% render 'product-variant-options', product: product, option: option, block: block %}
+            </select>
+            {% render 'icon-caret' %}
+          </div>
+        </div>
+      {%- endfor -%}
+    <script>
+  // Wait for the document to be ready
+  document.addEventListener("DOMContentLoaded", function() {
+    // Loop through each dropdown and set its selected index to -1
+    document.querySelectorAll('.select__select').forEach(function(select) {
+      select.selectedIndex = -1;
+    });
+  });
+</script>
 
       <script type="application/json">
         {{ product.variants | json }}
