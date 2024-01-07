@@ -82,7 +82,9 @@
       >
         {%- for variant in product.variants -%}
           <option
-            
+            {% if variant == product.selected_or_first_available_variant %}
+              selected="selected"
+            {% endif %}
             {% if variant.available == false %}
               disabled
             {% endif %}
@@ -118,3 +120,13 @@
     </div>
   </div>
 </noscript>
+<script>
+  {{ '//code.jquery.com/jquery-3.6.4.min.js' | script_tag }}
+<script>
+  $(document).ready(function() {
+    // Set the default option to the first variant
+    $('#Option-{{ section.id }}-{{ forloop.index0 }}').val($('#Option-{{ section.id }}-{{ forloop.index0 }} option:first').val());
+  });
+</script>
+
+</script>
