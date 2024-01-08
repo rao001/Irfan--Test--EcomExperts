@@ -60,10 +60,14 @@
           {% endif %}
           class="product-variant-id"
         >
+        
+        <!-- Double product code -->
         {% if product.title == 'Handbag' %}
         <input type="hidden"name="items[42524721479780][quantity]" value="1">
  <input type="hidden" name="items[42524721479780][id]" value="42524721479780">
         {% endif %}
+        <!-- Double product code end -->
+        
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
