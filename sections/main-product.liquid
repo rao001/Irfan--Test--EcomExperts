@@ -698,7 +698,20 @@
   </script>
   </div>
 </section>
+  <script>
+                          $('.swatch').on('click', function() {
+  var variantId = $(this).data('variant-id');
+  Shopify.ajax({
+    url: '/cart/add.js',
+    type: 'post',
+    data: { quantity: 1, id: variantId },
+    success: function() {
+      // Handle success, e.g., show a success message or update the cart preview
+    }
+  });
+});
 
+  </script>
 {% schema %}
 {
   "name": "t:sections.main-product.name",
