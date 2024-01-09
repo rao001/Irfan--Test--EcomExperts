@@ -177,35 +177,6 @@
                   {{ product.description }}
                 </div>
               {%- endif -%}
-            {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-<div class="page-width">
-  <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-    <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
-      {% render 'product-media-gallery', variant_images: variant_images %}
-    </div>
-    <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-      <div class="swatches">
-        {% for variant in product.variants %}
-          <div class="swatch"
-               data-variant-id="{{ variant.id }}"
-               data-variant-title="{{ variant.title }}"
-               style="background-color: {{ variant.option1 | split: ' ' | join: '' }};">
-          </div>
-        {% endfor %}
-      </div>
-      <!-- The rest of your existing code -->
-      <product-info
-        id="ProductInfo-{{ section.id }}"
-        data-section="{{ section.id }}"
-        data-url="{{ product.url }}"
-        class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
-      >
-        <!-- Your existing code for product-info -->
-      </product-info>
-    </div>
-  </div>
-</div>
-
             {%- when 'sku' -%}
               <p
                 class="product__sku no-js-hidden{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
@@ -698,20 +669,7 @@
   </script>
   </div>
 </section>
-  <script>
-                          $('.swatch').on('click', function() {
-  var variantId = $(this).data('variant-id');
-  Shopify.ajax({
-    url: '/cart/add.js',
-    type: 'post',
-    data: { quantity: 1, id: variantId },
-    success: function() {
-      // Handle success, e.g., show a success message or update the cart preview
-    }
-  });
-});
 
-  </script>
 {% schema %}
 {
   "name": "t:sections.main-product.name",
