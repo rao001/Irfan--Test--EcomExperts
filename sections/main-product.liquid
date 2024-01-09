@@ -279,6 +279,18 @@
                               </dd>
                             </dl>
                           {%- endif -%}
+                        {% if product.available and product.variants.size > 1 %}
+  <div class="swatches">
+    {% for variant in product.variants %}
+      <div class="swatch"
+           data-variant-id="{{ variant.id }}"
+           data-variant-title="{{ variant.title }}"
+           style="background-color: {{ variant.option1 | split: ' ' | join: '' }};">
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
                           {%- if current_qty_for_volume_pricing < volume_pricing_array.last.minimum_quantity -%}
                             {%- assign variant_price = product.selected_or_first_available_variant.price | money_with_currency -%}
                             <span class="price-per-item--current">{{ 'products.product.volume_pricing.price_at_each' | t: price: variant_price }}</span>
@@ -669,6 +681,20 @@
   </script>
   </div>
 </section>
+<script>
+                          $('.swatch').on('click', function() {
+  var variantId = $(this).data('variant-id');
+  Shopify.ajax({
+    url: '/cart/add.js',
+    type: 'post',
+    data: { quantity: 1, id: variantId },
+    success: function() {
+      // Handle success, e.g., show a success message or update the cart preview
+    }
+  });
+});
+</script>
+
 
 {% schema %}
 {
